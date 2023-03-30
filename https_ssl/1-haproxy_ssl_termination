@@ -40,5 +40,5 @@ frontend Local_Server
 backend Web_Servers
         balance roundrobin
         mode http
-        server web-01 54.164.177.70:80 check
-        server web-02 204.236.202.247:80 check
+        server web-01 3.80.190.160:80 check
+        server web-02 3.85.173.231:80 check
