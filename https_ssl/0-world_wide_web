@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# bash script that displays info about subdomains
+
+
+domain_information () {
+    local domain=$1
+    local subdomain=$2
+
+    if [[ -z $subdomain ]]; then
+        subdomains=("www" "lb-01" "web-01" "web-02")
+    else
+        subdomains=("$subdomain")
+    fi
+
+    for sub in "${subdomains[@]}"; do
+        record=$(dig +short $sub.$domain)
+        if [[ -n $record ]]; then
+            type=$(dig $sub.$domain | awk '/IN\s/ {print $4}')
+            echo "The subdomain $sub is a $type record and points to $record"
+        else
+            echo "No record found for subdomain $sub"
+        fi
+    done
+}
+
+auditSubdomain $1 $2
